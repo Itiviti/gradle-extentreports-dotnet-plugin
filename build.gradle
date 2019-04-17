@@ -1,0 +1,39 @@
+plugins {
+    id 'nu.studer.plugindev' version '1.0.12'
+    id 'net.researchgate.release' version '2.6.0'
+    id 'groovy'
+}
+
+group = 'com.ullink.gradle'
+description 'Uses extentreports-dotnet-cli to generate an HTML report based on an NUnit Test Result file.'
+
+dependencies {
+    compile(
+        [group: 'de.undercouch', name: 'gradle-download-task', version: '3.4.3']
+    )
+}
+
+bintray {
+    user project.properties.bintrayUser
+    key project.properties.bintrayApiKey
+    pkg.repo = 'gradle-plugins'
+    pkg.version.gpg.sign = true
+    pkg.userOrg = 'ullink'
+}
+
+plugindev {
+    pluginName 'com.ullink.gradle:gradle-extentreports-dotnet-plugin'
+    pluginDescription project.description
+    pluginLicenses 'Apache-2.0'
+    pluginTags 'gradle', 'plugin', 'c#', '.net'
+    authorId 'ekando'
+    authorName 'Kando Eniko'
+    authorEmail 'eniko.kando@gmail.com'
+    projectUrl "https://github.com/Ullink/${project.name}"
+    projectInceptionYear '2019'
+    pluginId = 'com.ullink.extentreports-dotnet'
+    pluginImplementationClass 'com.ullink.gradle.extentreport.ExtentReportDotnetPlugin'
+    done()
+}
+
+afterReleaseBuild.dependsOn project.tasks.bintrayUpload
