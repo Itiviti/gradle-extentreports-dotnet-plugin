@@ -9,8 +9,14 @@ description 'Uses extentreports-dotnet-cli to generate an HTML report based on a
 
 dependencies {
     compile(
-        [group: 'de.undercouch', name: 'gradle-download-task', version: '3.4.3']
+        [group: 'de.undercouch', name: 'gradle-download-task', version: '3.4.3'],
+        [group: 'com.ullink.gradle', name: 'gradle-nunit-plugin', version: '1.14'],
+        [group: 'com.ullink.gradle', name: 'gradle-opencover-plugin', version: '1.13']
     )
+    testCompile 'junit:junit:4.11'
+    testImplementation('org.spockframework:spock-core:1.1-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
 }
 
 bintray {
